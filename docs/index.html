@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'ivan0525',
+      repo: 'https://github.com/ivan0525',
+      coverpage: true,
+      loadSidebar: true,
+      // see here: https://docsify.js.org/#/more-pages?id=nested-sidebars
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      themeColor: '#646cff',
+      copyCode: {
+        buttonText : '复制代码',
+        errorText  : '代码复制失败',
+        successText: '代码复制成功'
+      },
+      search: {
+        // 支持本地化
+        noData: {
+          '/zh-cn/': '找不到结果',
+          '/': 'No Results'
+        },
+      },
+      plugins: []
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4.12.1/lib/docsify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2.1.1/dist/docsify-copy-code.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-back-to-top@0.0.1/dist/docsify-back-to-top.min.js"></script>
+  <script>
+    window.$docsify.plugins = [].concat(function(hook, vm) {
+        const dom = Docsify.dom;
+        hook.mounted(function() {
+            const div = dom.create("div");
+            div.id = "gitalk-container";
+            const main = dom.getNode("#main");
+            div.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;padding-bottom: 50px;";
+            dom.appendTo(dom.find(".content"), div);
+        });
+        hook.doneEach(function() {
+            let title = decodeURIComponent(vm.route.path.split("/").slice(-1).pop());
+            if(!title) title = window.$docsify.name;
+            document.title = title;
+            for(let n = document.getElementById("gitalk-container"); n.hasChildNodes();) n.removeChild(n.firstChild);
+            new Gitalk({
+                clientID: "44d053e1306af96372ee",
+                clientSecret: "dd236a526020d9d74c2eb7e3bc45518d8bf1b057",
+                repo: "my-blog",
+                owner: "ivan0525",
+                title: title,
+                body: `[${title}](${location.href})`,
+                admin: ["ivan0525"],
+                id: md5(title),
+                distractionFreeMode: false
+            }).render("gitalk-container");
+        });
+    }, $docsify.plugins);
+</script>
+</body>
+</html>
