@@ -2,5 +2,7 @@
     - [CSS选择器](/CSS/CSS选择器.md)
 - JavaScript
     - [数组map方法的认识](/JavaScript/数组map方法的认识.md)
+- TypeScript
+    - [字符串字面类型的数组](/TypeScript/字符串字面类型的数组.md)
 - LeetCode
     - [二叉树](/LeetCode/二叉树.md)
